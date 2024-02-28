@@ -21,7 +21,11 @@ set(LIB_DIR C:/dev/SFML-2.6.1/lib)
 set(BIN_DIR C:/dev/SFML-2.6.1/bin)
 
 # Add source files to the project
-add_executable(WarfrontEvolution ${SOURCE_DIR}/main.cpp)
+add_executable(WarfrontEvolution 
+  ${SOURCE_DIR}/main.cpp
+  ${SOURCE_DIR}/menu.cpp
+  ${SOURCE_DIR}/game.cpp
+)
 
 # Link SFML libraries
 target_link_directories(WarfrontEvolution PUBLIC ${LIB_DIR})

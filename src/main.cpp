@@ -1,24 +1,22 @@
 #include <SFML/Graphics.hpp>
+#include "menu.hpp"
+#include "game.hpp"
 
-int main()
-{
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
 
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
+int main() {
+  Menu* menu = new Menu();
+  menu->run_menu();
 
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
+  if (menu->get_pos() == 1) {
+    delete menu;
 
-    return 0;
+    Game* game = new Game();
+    game->run_game();
+    
+    delete game;
+  } else {
+    delete menu;
+  }
+
+  return 0;
 }
