@@ -20,11 +20,15 @@ set(LIB_DIR C:/dev/SFML-2.6.1/lib)
 # Set the binary directory
 set(BIN_DIR C:/dev/SFML-2.6.1/bin)
 
+# Set the binary directory
+set(RESOURCES_DIR resources)
+
 # Add source files to the project
 add_executable(WarfrontEvolution 
   ${SOURCE_DIR}/main.cpp
   ${SOURCE_DIR}/menu.cpp
   ${SOURCE_DIR}/game.cpp
+  ${SOURCE_DIR}/clubman.cpp
 )
 
 # Link SFML libraries

@@ -1,4 +1,6 @@
 #include "Game.hpp"
+#include "clubman.hpp"
+#include <memory>
 
 Game::Game() {
     window = new sf::RenderWindow();
@@ -13,12 +15,15 @@ Game::~Game() {
 }
 
 void Game::set_values() {
-    window->create(sf::VideoMode(1000, 600), "Pong - Game");
+    window->create(sf::VideoMode(1920, 1080), "Warfront Evolution - Game");
     window->setFramerateLimit(144);
 
     if (!font->loadFromFile("arial.ttf")) {
         printf("error");
     }
+
+    allies.push_back(std::make_shared<Clubman>(true));
+    enemies.push_back(std::make_shared<Clubman>(false));
 }
 
 void Game::loop_events() {
@@ -32,10 +37,25 @@ void Game::loop_events() {
 }
 
 void Game::update() {
+  allies.front()->move(enemies.empty()? NULL : enemies.front(), NULL);
+  enemies.front()->move(allies.empty()? NULL : allies.front(), NULL);
 }
 
 void Game::render() {
     window->clear();
+
+    for (auto ally : allies) {
+      window->draw(ally->get_sprite());
+    }
+
+    for (auto enemy : enemies) {
+      window->draw(enemy->get_sprite());
+    }
+
+    // std::shared_ptr<Attacker> cm = enemies.front();
+    // window->draw(cm->sprite);
+    // printf("%s", cm->side ? "True" : "False");
+    // printf("%d", cm->value);
 
     window->display();
 }
