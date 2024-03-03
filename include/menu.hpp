@@ -7,7 +7,7 @@ class Menu {
 	sf::Font* font;
 
 	int pos;
-	bool pressed, theselect;
+	bool pressed, selected;
 	
 	sf::Vector2i pos_mouse;
 	sf::Vector2f mouse_coord;
@@ -23,7 +23,8 @@ class Menu {
 
 public:
 	Menu();
-	int get_pos();
 	~Menu();
+	int get_pos();
+  bool get_selected();
 	void run_menu();
 };

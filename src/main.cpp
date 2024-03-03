@@ -7,7 +7,7 @@ int main() {
   Menu* menu = new Menu();
   menu->run_menu();
 
-  if (menu->get_pos() == 1) {
+  if (menu->get_pos() == 1 && menu->get_selected()) {
     delete menu;
 
     Game* game = new Game();

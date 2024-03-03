@@ -18,14 +18,14 @@ void Menu::set_values() {
 	font->loadFromFile("arial.ttf");
 
 	pos = 1;
-	pressed = theselect = false;
+	pressed = selected = false;
 
 	pos_mouse = { 0, 0 };
 	mouse_coord = { 0, 0 };
 
 	options = { "Warfront Evolution", "Play", "Quit" };
 	texts.resize(3);
-	coords = { {450, 100}, {450, 200}, {450, 300} };
+	coords = { {400, 100}, {400, 200}, {400, 300} };
 	sizes = { 30, 25, 25 };
 	
 	for (std::size_t i{}; i < texts.size(); ++i) {
@@ -57,7 +57,7 @@ void Menu::loop_events() {
 				texts[pos].setOutlineThickness(4);
 				texts[pos - 1].setOutlineThickness(0);
 				pressed = false;
-				theselect = false;
+				selected = false;
 			}
 		}
 
@@ -68,12 +68,12 @@ void Menu::loop_events() {
 				texts[pos].setOutlineThickness(4);
 				texts[pos + 1].setOutlineThickness(0);
 				pressed = false;
-				theselect = false;
+				selected = false;
 			}
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !theselect) {
-			theselect = true;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && !selected) {
+			selected = true;
 			if (pos == 1) {
 				window->close();
 			}
@@ -103,4 +103,8 @@ void Menu::run_menu() {
 
 int Menu::get_pos() {
 	return pos;
+}
+
+bool Menu::get_selected() {
+  return selected;
 }
