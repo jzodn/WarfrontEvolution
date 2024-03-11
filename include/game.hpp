@@ -1,15 +1,14 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <list>
-#include "attacker.hpp"
+#include "team.hpp"
 
 class Game {
 	sf::RenderWindow* window;
 	sf::Font* font;
 
-  std::list<std::shared_ptr<Attacker>> allies;
-  std::list<std::shared_ptr<Attacker>> enemies;
+  Team ally_team;
+  Team enemy_team;
 
 	void set_values();
 	void loop_events();

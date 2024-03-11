@@ -22,8 +22,9 @@ void Game::set_values() {
         printf("error");
     }
 
-    allies.push_back(std::make_shared<Clubman>(true));
-    enemies.push_back(std::make_shared<Clubman>(false));
+    ally_team.add_attacker(std::make_shared<Clubman>(true));
+    ally_team.add_attacker(std::make_shared<Clubman>(true));
+    enemy_team.add_attacker(std::make_shared<Clubman>(false));
 }
 
 void Game::loop_events() {
@@ -37,25 +38,15 @@ void Game::loop_events() {
 }
 
 void Game::update() {
-  allies.front()->move(enemies.empty()? NULL : enemies.front(), NULL);
-  enemies.front()->move(allies.empty()? NULL : allies.front(), NULL);
+  ally_team.move(enemy_team.empty()? NULL : enemy_team.first_attacker());
+  enemy_team.move(ally_team.empty()? NULL : ally_team.first_attacker());
 }
 
 void Game::render() {
     window->clear();
 
-    for (auto ally : allies) {
-      window->draw(ally->get_sprite());
-    }
-
-    for (auto enemy : enemies) {
-      window->draw(enemy->get_sprite());
-    }
-
-    // std::shared_ptr<Attacker> cm = enemies.front();
-    // window->draw(cm->sprite);
-    // printf("%s", cm->side ? "True" : "False");
-    // printf("%d", cm->value);
+    ally_team.draw(window);
+    enemy_team.draw(window);
 
     window->display();
 }

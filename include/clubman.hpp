@@ -2,12 +2,11 @@
 
 #include <SFML/Graphics.hpp>
 #include "Attacker.hpp"
-#include "SFML/Graphics/RectangleShape.hpp"
 
 class Clubman : public Attacker {
   private:
     sf::RectangleShape sprite;
-    sf::FloatRect boundingBox;
+    sf::FloatRect bounding_box;
     int value;
     bool side;
     int health;
@@ -15,8 +14,8 @@ class Clubman : public Attacker {
 
   public:
     Clubman(bool side);
-    void move(std::shared_ptr<Attacker> firstEnemy, std::shared_ptr<Attacker> nextAlly);
-    void attack(std::shared_ptr<Attacker> firstEnemy);
+    void move(std::shared_ptr<Attacker> first_enemy, std::shared_ptr<Attacker> next_ally);
+    void attack(std::shared_ptr<Attacker> first_enemy);
     void take_damage(int damage);
     sf::RectangleShape get_sprite();
     bool intersects(sf::FloatRect);

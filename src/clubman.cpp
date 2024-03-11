@@ -9,20 +9,21 @@ Clubman::Clubman(bool side) {
   damage = 10;
   this->side = side;
 
+  sprite.setFillColor(side ? sf::Color::White : sf::Color::Red);
   sprite.setPosition(side? 200.f : 1720.f, 800.f);
-  boundingBox = sprite.getGlobalBounds();
+  bounding_box = sprite.getGlobalBounds();
 }
 
-void Clubman::move(std::shared_ptr<Attacker> firstEnemy, std::shared_ptr<Attacker> nextAlly) {
-  if ((nextAlly == NULL || !nextAlly->intersects(boundingBox)) &&
-        (firstEnemy == NULL || !firstEnemy->intersects(boundingBox))) {
+void Clubman::move(std::shared_ptr<Attacker> first_enemy, std::shared_ptr<Attacker> next_ally) {
+  if ((next_ally == NULL || !next_ally->intersects(bounding_box)) &&
+        (first_enemy == NULL || !first_enemy->intersects(bounding_box))) {
         sprite.move(side? 1.f : -1.f, 0.f);
-        boundingBox = sprite.getGlobalBounds();
+        bounding_box = sprite.getGlobalBounds();
   }
 }
 
-void Clubman::attack(std::shared_ptr<Attacker> firstEnemy) {
-  firstEnemy->take_damage(damage);
+void Clubman::attack(std::shared_ptr<Attacker> first_enemy) {
+  first_enemy->take_damage(damage);
 }
 
 void Clubman::take_damage(int damage) {
@@ -33,6 +34,6 @@ sf::RectangleShape Clubman::get_sprite() {
   return sprite;
 }
 
-bool Clubman::intersects(sf::FloatRect boundingBox) {
-  return this->boundingBox.intersects(boundingBox);
+bool Clubman::intersects(sf::FloatRect bounding_box) {
+  return this->bounding_box.intersects(bounding_box);
 }
