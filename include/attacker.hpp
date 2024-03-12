@@ -2,6 +2,7 @@
 
 #include "SFML/Graphics/Rect.hpp"
 #include <SFML/Graphics.hpp>
+#include "Base.hpp"
 
 class Attacker {
   private:
@@ -13,7 +14,7 @@ class Attacker {
     int damage;
 
   public:
-    virtual void move(std::shared_ptr<Attacker> first_enemy, std::shared_ptr<Attacker> next_ally) = 0;
+    virtual void move(std::shared_ptr<Attacker> first_enemy, std::shared_ptr<Attacker> next_ally, std::shared_ptr<Base> base) = 0;
     virtual void attack(std::shared_ptr<Attacker> first_enemy) = 0;
     virtual void take_damage(int damage) = 0;
     virtual sf::RectangleShape get_sprite() = 0;

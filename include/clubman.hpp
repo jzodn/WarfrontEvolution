@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Attacker.hpp"
+#include "Base.hpp"
 
 class Clubman : public Attacker {
   private:
@@ -14,7 +15,7 @@ class Clubman : public Attacker {
 
   public:
     Clubman(bool side);
-    void move(std::shared_ptr<Attacker> first_enemy, std::shared_ptr<Attacker> next_ally);
+    void move(std::shared_ptr<Attacker> first_enemy, std::shared_ptr<Attacker> next_ally, std::shared_ptr<Base> base);
     void attack(std::shared_ptr<Attacker> first_enemy);
     void take_damage(int damage);
     sf::RectangleShape get_sprite();

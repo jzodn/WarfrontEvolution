@@ -29,6 +29,7 @@ add_executable(WarfrontEvolution
   ${SOURCE_DIR}/menu.cpp
   ${SOURCE_DIR}/game.cpp
   ${SOURCE_DIR}/team.cpp
+  ${SOURCE_DIR}/base.cpp
   ${SOURCE_DIR}/clubman.cpp
 )
 

@@ -2,7 +2,7 @@
 #include "clubman.hpp"
 #include <memory>
 
-Game::Game() {
+Game::Game() : ally_team(true), enemy_team(false) {
     window = new sf::RenderWindow();
     font = new sf::Font();
 
@@ -22,9 +22,10 @@ void Game::set_values() {
         printf("error");
     }
 
+    // TODO: change this to just pass the type of attacker
     ally_team.add_attacker(std::make_shared<Clubman>(true));
     ally_team.add_attacker(std::make_shared<Clubman>(true));
-    enemy_team.add_attacker(std::make_shared<Clubman>(false));
+    // enemy_team.add_attacker(std::make_shared<Clubman>(false));
 }
 
 void Game::loop_events() {
@@ -38,8 +39,8 @@ void Game::loop_events() {
 }
 
 void Game::update() {
-  ally_team.move(enemy_team.empty()? NULL : enemy_team.first_attacker());
-  enemy_team.move(ally_team.empty()? NULL : ally_team.first_attacker());
+  ally_team.move(enemy_team.empty()? NULL : enemy_team.first_attacker(), enemy_team.get_base());
+  enemy_team.move(ally_team.empty()? NULL : ally_team.first_attacker(), ally_team.get_base());
 }
 
 void Game::render() {
