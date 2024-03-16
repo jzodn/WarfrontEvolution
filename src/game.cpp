@@ -2,60 +2,70 @@
 #include "clubman.hpp"
 #include <memory>
 
-Game::Game() : ally_team(true), enemy_team(false) {
-    window = new sf::RenderWindow();
-    font = new sf::Font();
+Game::Game() {
+  window = new sf::RenderWindow();
+  font = new sf::Font();
 
-    set_values();
+  set_values();
 }
 
 Game::~Game() {
-    delete window;
-    delete font;
+  delete window;
+  delete font;
 }
 
 void Game::set_values() {
-    window->create(sf::VideoMode(1920, 1080), "Warfront Evolution - Game");
-    window->setFramerateLimit(144);
+  window->create(sf::VideoMode(1920, 1080), "Warfront Evolution - Game");
+  window->setFramerateLimit(144);
 
-    if (!font->loadFromFile("arial.ttf")) {
-        printf("error");
-    }
+  if (!font->loadFromFile("arial.ttf")) {
+      printf("error");
+  }
 
-    // TODO: change this to just pass the type of attacker
-    ally_team.add_attacker(std::make_shared<Clubman>(true));
-    ally_team.add_attacker(std::make_shared<Clubman>(true));
-    // enemy_team.add_attacker(std::make_shared<Clubman>(false));
+  ally_team = std::make_shared<Team>(true);
+  enemy_team = std::make_shared<Team>(false);
+
+  // TODO: change this to just pass the type of attacker
+  ally_team->add_attacker(std::make_shared<Clubman>(true));
+  // ally_team.add_attacker(std::make_shared<Clubman>(true));
+  enemy_team->add_attacker(std::make_shared<Clubman>(false));
 }
 
 void Game::loop_events() {
-    sf::Event event;
+  sf::Event event;
 
-    while (window->pollEvent(event)) {
-        if (event.type == sf::Event::Closed) {
-            window->close();
-        }
-    }
+  while (window->pollEvent(event)) {
+      if (event.type == sf::Event::Closed) {
+          window->close();
+      }
+  }
 }
 
 void Game::update() {
-  ally_team.move(enemy_team.empty()? NULL : enemy_team.first_attacker(), enemy_team.get_base());
-  enemy_team.move(ally_team.empty()? NULL : ally_team.first_attacker(), ally_team.get_base());
+  ally_team->move(enemy_team);
+  enemy_team->move(ally_team);
+
+  ally_team->attack(enemy_team);
+  enemy_team->attack(ally_team);
 }
 
 void Game::render() {
-    window->clear();
+  window->clear();
 
-    ally_team.draw(window);
-    enemy_team.draw(window);
+  ally_team->draw(window);
+  enemy_team->draw(window);
 
-    window->display();
+  window->display();
 }
 
 void Game::run_game() {
-    while (window->isOpen()) {
-        loop_events();
-        update();
-        render();
-    }
+  sf::Clock clock;
+
+  while (window->isOpen()) {
+    sf::Time elapsed = clock .restart();
+
+    loop_events();
+    update();
+    render();
+  }
 }

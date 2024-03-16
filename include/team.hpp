@@ -14,10 +14,11 @@ class Team {
 
   public:
     Team(bool side);
-    std::shared_ptr<Attacker> first_attacker();
+    std::shared_ptr<Attacker> get_first_attacker();
     std::shared_ptr<Base> get_base();
     bool empty();
     void draw(sf::RenderWindow*);
-    void move(std::shared_ptr<Attacker> first_enemy, std::shared_ptr<Base> enemy_base);
+    void move(std::shared_ptr<Team> enemy_team);
     bool add_attacker(std::shared_ptr<Attacker>);
+    void attack(std::shared_ptr<Team> enemy_team);
 };

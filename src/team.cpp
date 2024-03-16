@@ -6,7 +6,7 @@ Team::Team(bool side) {
   this->money = 0;
 }
 
-std::shared_ptr<Attacker> Team::first_attacker() {
+std::shared_ptr<Attacker> Team::get_first_attacker() {
   return attackers.front();
 }
 
@@ -22,11 +22,11 @@ void Team::draw(sf::RenderWindow* window) {
   window->draw(base->get_sprite());
 }
 
-void Team::move(std::shared_ptr<Attacker> first_enemy, std::shared_ptr<Base> enemy_base) {
+void Team::move(std::shared_ptr<Team> enemy_team) {
   std::shared_ptr<Attacker> next_ally = NULL;
 
   for (auto attacker : attackers) {
-    attacker->move(first_enemy, next_ally, enemy_base);
+    attacker->move(enemy_team->get_first_attacker(), next_ally, enemy_team->get_base());
     next_ally = attacker;
   } 
 }
@@ -42,4 +42,13 @@ bool Team::add_attacker(std::shared_ptr<Attacker> attacker) {
 
 std::shared_ptr<Base> Team::get_base() {
   return base;
+}
+
+void Team::attack(std::shared_ptr<Team> enemy_team) {
+  std::shared_ptr<Attacker> first_attacker = get_first_attacker();
+  std::shared_ptr<Attacker> first_enemy_attacker = enemy_team->get_first_attacker();
+
+  if (first_attacker != NULL && first_attacker->get_attack_timer() && first_enemy_attacker->intersects(first_attacker->get_bounding_box())) {
+    first_attacker->attack(first_enemy_attacker);
+  }
 }

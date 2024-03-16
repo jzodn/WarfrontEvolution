@@ -2,6 +2,7 @@
 #include <memory>
 #include "Clubman.hpp"
 #include "Base.hpp"
+#include "clubman.hpp"
 
 Clubman::Clubman(bool side) {
   sprite.setSize(sf::Vector2f(50.f, 250.f));
@@ -13,6 +14,9 @@ Clubman::Clubman(bool side) {
   damage = 10;
   this->side = side;
   bounding_box = sprite.getGlobalBounds();
+
+  attack_timer.restart();
+  attack_timer_max = 500;
 }
 
 void Clubman::move(std::shared_ptr<Attacker> first_enemy, std::shared_ptr<Attacker> next_ally, std::shared_ptr<Base> enemy_base) {
@@ -24,12 +28,13 @@ void Clubman::move(std::shared_ptr<Attacker> first_enemy, std::shared_ptr<Attack
   }
 }
 
-void Clubman::attack(std::shared_ptr<Attacker> first_enemy) {
-  first_enemy->take_damage(damage);
+void Clubman::attack(std::shared_ptr<Attacker> enemy) {
+  enemy->take_damage(damage);
 }
 
 void Clubman::take_damage(int damage) {
   health -= damage;
+  printf("Health = %d", health);
 }
 
 sf::RectangleShape Clubman::get_sprite() {
@@ -38,4 +43,17 @@ sf::RectangleShape Clubman::get_sprite() {
 
 bool Clubman::intersects(sf::FloatRect bounding_box) {
   return this->bounding_box.intersects(bounding_box);
+}
+
+sf::FloatRect Clubman::get_bounding_box() {
+  return bounding_box;
+}
+
+bool Clubman::get_attack_timer() {
+  if(attack_timer.getElapsedTime().asMilliseconds() > attack_timer_max) {
+    attack_timer.restart();
+    return true;
+  }
+
+  return false;
 }
