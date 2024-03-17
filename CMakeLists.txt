@@ -51,7 +51,3 @@ add_custom_command(TARGET WarfrontEvolution POST_BUILD
         ${BIN_DIR}
         $<TARGET_FILE_DIR:WarfrontEvolution>
 )
-
-# Set compile_commands.json
-set(DCMAKE_EXPORT_COMPILE_COMMANDS ON)
-

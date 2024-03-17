@@ -7,6 +7,10 @@ Team::Team(bool side) {
 }
 
 std::shared_ptr<Attacker> Team::get_first_attacker() {
+  if (attackers.empty()) {
+    return NULL;
+  }
+
   return attackers.front();
 }
 
@@ -31,6 +35,7 @@ void Team::move(std::shared_ptr<Team> enemy_team) {
   } 
 }
 
+// TODO: change this to just pass the type of attacker
 bool Team::add_attacker(std::shared_ptr<Attacker> attacker) {
   if (attackers.size() < 5) {
     attackers.push_back(attacker);
@@ -48,7 +53,13 @@ void Team::attack(std::shared_ptr<Team> enemy_team) {
   std::shared_ptr<Attacker> first_attacker = get_first_attacker();
   std::shared_ptr<Attacker> first_enemy_attacker = enemy_team->get_first_attacker();
 
-  if (first_attacker != NULL && first_attacker->get_attack_timer() && first_enemy_attacker->intersects(first_attacker->get_bounding_box())) {
-    first_attacker->attack(first_enemy_attacker);
+  if (first_attacker != NULL && first_enemy_attacker != NULL && first_attacker->get_attack_timer() && first_enemy_attacker->intersects(first_attacker->get_bounding_box())) {
+    if (first_attacker->attack(first_enemy_attacker)) {
+      enemy_team->remove_first();
+    }
   }
+}
+
+void Team::remove_first() {
+  attackers.pop_front();
 }

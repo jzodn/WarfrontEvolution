@@ -21,4 +21,5 @@ class Team {
     void move(std::shared_ptr<Team> enemy_team);
     bool add_attacker(std::shared_ptr<Attacker>);
     void attack(std::shared_ptr<Team> enemy_team);
+    void remove_first();
 };

@@ -19,8 +19,8 @@ class Clubman : public Attacker {
   public:
     Clubman(bool side);
     void move(std::shared_ptr<Attacker> first_enemy, std::shared_ptr<Attacker> next_ally, std::shared_ptr<Base> base);
-    void attack(std::shared_ptr<Attacker> enemy);
-    void take_damage(int damage);
+    bool attack(std::shared_ptr<Attacker> enemy);
+    bool take_damage(int damage);
     sf::RectangleShape get_sprite();
     bool intersects(sf::FloatRect);
     sf::FloatRect get_bounding_box();

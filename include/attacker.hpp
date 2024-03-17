@@ -17,8 +17,8 @@ class Attacker {
 
   public:
     virtual void move(std::shared_ptr<Attacker> first_enemy, std::shared_ptr<Attacker> next_ally, std::shared_ptr<Base> base) = 0;
-    virtual void attack(std::shared_ptr<Attacker> enemy) = 0;
-    virtual void take_damage(int damage) = 0;
+    virtual bool attack(std::shared_ptr<Attacker> enemy) = 0;
+    virtual bool take_damage(int damage) = 0;
     virtual sf::RectangleShape get_sprite() = 0;
     virtual bool intersects(sf::FloatRect) = 0;
     virtual sf::FloatRect get_bounding_box() = 0;

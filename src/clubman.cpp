@@ -1,7 +1,6 @@
 #include "Attacker.hpp"
 #include <memory>
-#include "Clubman.hpp"
-#include "Base.hpp"
+#include "base.hpp"
 #include "clubman.hpp"
 
 Clubman::Clubman(bool side) {
@@ -28,13 +27,14 @@ void Clubman::move(std::shared_ptr<Attacker> first_enemy, std::shared_ptr<Attack
   }
 }
 
-void Clubman::attack(std::shared_ptr<Attacker> enemy) {
-  enemy->take_damage(damage);
+bool Clubman::attack(std::shared_ptr<Attacker> enemy) {
+  return enemy->take_damage(damage);
 }
 
-void Clubman::take_damage(int damage) {
+bool Clubman::take_damage(int damage) {
   health -= damage;
-  printf("Health = %d", health);
+
+  return health <= 0;
 }
 
 sf::RectangleShape Clubman::get_sprite() {

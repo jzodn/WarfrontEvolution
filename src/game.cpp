@@ -25,9 +25,9 @@ void Game::set_values() {
   ally_team = std::make_shared<Team>(true);
   enemy_team = std::make_shared<Team>(false);
 
-  // TODO: change this to just pass the type of attacker
   ally_team->add_attacker(std::make_shared<Clubman>(true));
-  // ally_team.add_attacker(std::make_shared<Clubman>(true));
+  ally_team->add_attacker(std::make_shared<Clubman>(true));
+  enemy_team->add_attacker(std::make_shared<Clubman>(false));
   enemy_team->add_attacker(std::make_shared<Clubman>(false));
 }
 
