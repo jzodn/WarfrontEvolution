@@ -7,15 +7,17 @@ Base::Base(bool side) {
   sprite.setPosition(side ? 0.f : 1820.f, 600.f);
   bounding_box = sprite.getGlobalBounds();
 
-  health = 1000;
+  health = 100;
 }
 
 sf::RectangleShape Base::get_sprite() {
   return sprite;
 }
 
-void Base::take_damage(int damage) {
+bool Base::take_damage(int damage) {
   health -= damage;
+
+  return health <= 0;
 }
 
 bool Base::intersects(sf::FloatRect bounding_box) {

@@ -1,5 +1,6 @@
 #include "Team.hpp"
 #include <memory>
+#include <iostream>
 
 Team::Team(bool side) {
   base = std::make_shared<Base>(side); 
@@ -51,11 +52,30 @@ std::shared_ptr<Base> Team::get_base() {
 
 void Team::attack(std::shared_ptr<Team> enemy_team) {
   std::shared_ptr<Attacker> first_attacker = get_first_attacker();
+
+  if (first_attacker == NULL) {
+    return;
+  }
+
   std::shared_ptr<Attacker> first_enemy_attacker = enemy_team->get_first_attacker();
 
-  if (first_attacker != NULL && first_enemy_attacker != NULL && first_attacker->get_attack_timer() && first_enemy_attacker->intersects(first_attacker->get_bounding_box())) {
+  if (first_enemy_attacker != NULL && first_attacker->get_attack_timer() && first_enemy_attacker->intersects(first_attacker->get_bounding_box())) {
     if (first_attacker->attack(first_enemy_attacker)) {
+      // TODO:
+      // When enemy dies add money
       enemy_team->remove_first();
+      return;
+    }
+  }
+
+  std::shared_ptr<Base> enemy_base = enemy_team->get_base();
+
+  if (first_attacker->get_attack_timer() && enemy_base->intersects(first_attacker->get_bounding_box())) {
+    if (first_attacker->attack(enemy_base)) {
+      // TODO: 
+      // Expand this winning / lossing function
+      std::cout << (!side ? "You win!" : "You lose!") << std::endl;
+      return;
     }
   }
 }

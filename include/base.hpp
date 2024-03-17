@@ -12,6 +12,6 @@ class Base {
   public:
     Base(bool side);
     sf::RectangleShape get_sprite();
-    void take_damage(int);
+    bool take_damage(int);
     bool intersects(sf::FloatRect);
 };

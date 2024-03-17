@@ -31,6 +31,10 @@ bool Clubman::attack(std::shared_ptr<Attacker> enemy) {
   return enemy->take_damage(damage);
 }
 
+bool Clubman::attack(std::shared_ptr<Base> enemy_base) {
+  return enemy_base->take_damage(damage);
+}
+
 bool Clubman::take_damage(int damage) {
   health -= damage;
 
