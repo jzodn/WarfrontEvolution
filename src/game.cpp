@@ -25,10 +25,10 @@ void Game::set_values() {
   ally_team = std::make_shared<Team>(true);
   enemy_team = std::make_shared<Team>(false);
 
-  ally_team->add_attacker(std::make_shared<Clubman>(true));
-  // ally_team->add_attacker(std::make_shared<Clubman>(true));
-  enemy_team->add_attacker(std::make_shared<Clubman>(false));
-  enemy_team->add_attacker(std::make_shared<Clubman>(false));
+  ally_team->add_attacker<Clubman>();
+  ally_team->add_attacker<Clubman>();
+  enemy_team->add_attacker<Clubman>();
+  enemy_team->add_attacker<Clubman>();
 }
 
 void Game::loop_events() {

@@ -19,7 +19,18 @@ class Team {
     bool empty();
     void draw(sf::RenderWindow*);
     void move(std::shared_ptr<Team> enemy_team);
-    bool add_attacker(std::shared_ptr<Attacker>);
     void attack(std::shared_ptr<Team> enemy_team);
     void remove_first();
+    
+    template<typename T>
+    bool add_attacker() {
+      static_assert(std::is_base_of<Attacker, T>::value, "T must be derived from Attacker");
+
+      if (attackers.size() < 5) {
+        attackers.push_back(std::make_shared<T>(side));
+        return true;
+      }
+
+      return false;
+    }
 };

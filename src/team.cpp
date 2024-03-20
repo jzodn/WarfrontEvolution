@@ -4,6 +4,7 @@
 
 Team::Team(bool side) {
   base = std::make_shared<Base>(side); 
+  this->side = side;
   this->money = 0;
 }
 
@@ -34,16 +35,6 @@ void Team::move(std::shared_ptr<Team> enemy_team) {
     attacker->move(enemy_team->get_first_attacker(), next_ally, enemy_team->get_base());
     next_ally = attacker;
   } 
-}
-
-// TODO: change this to just pass the type of attacker
-bool Team::add_attacker(std::shared_ptr<Attacker> attacker) {
-  if (attackers.size() < 5) {
-    attackers.push_back(attacker);
-    return true;
-  }
-
-  return false;
 }
 
 std::shared_ptr<Base> Team::get_base() {
